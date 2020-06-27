@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+</head>
+<body>
+
+<form method="POST">
+    {{ status }}
+
+    <select name="id">
+        {% for user in users %}
+            <option value="{{ user.id }}">{{ user.email }}</option>
+        {% endfor %}
+    </select>
+
+    <input type="submit" value="Löschen">
+</form>
+
+</body>
+</html>

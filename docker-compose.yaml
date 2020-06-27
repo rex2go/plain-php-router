@@ -1,0 +1,30 @@
+version: "3.1"
+services:
+    mysql:
+        image: mysql:latest
+        command: --default-authentication-plugin=mysql_native_password
+        environment:
+            - MYSQL_ROOT_PASSWORD=123456
+            - MYSQL_USER=symfony
+            - MYSQL_PASSWORD=123456
+        ports:
+            - "3306:3306"
+    webserver:
+        image: httpd:2.4
+        working_dir: /webroot
+        volumes:
+            - .:/webroot:consistent
+            - ./app.conf:/usr/local/apache2/conf/httpd.conf
+            - /webroot/vendor/
+            - /webroot/var/
+        ports:
+            - "80:80"
+            - "443:443"
+    php:
+        image: php7.2-mysql:latest
+        volumes:
+            - .:/webroot:consistent
+            - /webroot/vendor/
+            - /webroot/var/
+        ports:
+            - "9000:9000"
